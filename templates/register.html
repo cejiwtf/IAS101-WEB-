@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto;">
+    <h2>🔐 Create Your Account</h2>
+    <p>Fill in your details to create a new account.</p>
+    
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div>
+            <label for="email">📧 Email Address:</label>
+            {{ form.email(class="form-input") }}
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <div>
+            <label for="password">🔑 Password:</label>
+            <input type="password" id="password" name="password" 
+                   placeholder="Enter your password" 
+                   onkeyup="checkStrength()" required>
+            
+            <div id="strength" class="password-strength">
+                Password strength will appear here...
+            </div>
+            
+            {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    <div style="color: red; margin: 5px 0;">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            
+            <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                <strong>Password Requirements:</strong>
+                <ul>
+                    <li>At least 8 characters long</li>
+                    <li>One uppercase letter (A-Z)</li>
+                    <li>One lowercase letter (a-z)</li>
+                    <li>One number (0-9)</li>
+                    <li>One special character (!@#$%^&* etc.)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div>
+            {{ form.submit(class="submit-btn") }}
+        </div>
+    </form>
+    
+    <div style="margin-top: 20px; text-align: center;">
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+function checkStrength() {
+    const passwordInput = document.getElementById("password");
+    const strengthText = document.getElementById("strength");
+    
+    if (!passwordInput || !strengthText) return;
+    
+    const password = passwordInput.value;
+    
+    let score = 0;
+    const feedback = [];
+    
+    // Check password length
+    if (password.length >= 8) score++;
+    else feedback.push("At least 8 characters");
+    
+    // Check for uppercase letters
+    if (/[A-Z]/.test(password)) score++;
+    else feedback.push("One uppercase letter");
+    
+    // Check for lowercase letters
+    if (/[a-z]/.test(password)) score++;
+    else feedback.push("One lowercase letter");
+    
+    // Check for numbers
+    if (/[0-9]/.test(password)) score++;
+    else feedback.push("One number");
+    
+    // Check for special characters
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) score++;
+    else feedback.push("One special character");
+    
+    // Determine strength level
+    let strength = "Weak";
+    let color = "red";
+    let bgColor = "#f8d7da";
+    
+    if (score === 5) {
+        strength = "Very Strong 💪";
+        color = "darkgreen";
+        bgColor = "#d4edda";
+    } else if (score === 4) {
+        strength = "Strong 👍";
+        color = "green";
+        bgColor = "#d4edda";
+    } else if (score === 3) {
+        strength = "Good 👌";
+        color = "orange";
+        bgColor = "#fff3cd";
+    } else if (score === 2) {
+        strength = "Fair 🤔";
+        color = "goldenrod";
+        bgColor = "#fff3cd";
+    } else if (score === 1) {
+        strength = "Weak 😟";
+        color = "red";
+        bgColor = "#f8d7da";
+    } else {
+        strength = "Enter password";
+        color = "#666";
+        bgColor = "#e9ecef";
+    }
+    
+    // Update display
+    strengthText.innerHTML = `
+        <div style="background-color: ${bgColor}; color: ${color}; padding: 8px; border-radius: 4px;">
+            <strong>Password Strength: ${strength}</strong>
+            ${feedback.length > 0 && password.length > 0 ? 
+                `<br><small>Missing: ${feedback.join(", ")}</small>` : ''}
+        </div>
+    `;
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById("password");
+    if (passwordInput) {
+        passwordInput.addEventListener('keyup', checkStrength);
+        passwordInput.addEventListener('change', checkStrength);
+        checkStrength(); // Initial check
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}

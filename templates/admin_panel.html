@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto;">
+    <h2>👑 Admin Panel</h2>
+    <p>Welcome, Admin! Here you can view all registered users.</p>
+    
+    <div style="background-color: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+        <strong>📊 Total Users:</strong> {{ users|length }}
+    </div>
+    
+    <h3>🔒 Registered Users</h3>
+    
+    {% if users %}
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0; background-color: white;">
+        <thead>
+            <tr style="background-color: #2196F3; color: white;">
+                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">ID</th>
+                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">📧 Email</th>
+                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">👤 Role</th>
+                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">🔑 Password (Hashed)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr style="{% if loop.index % 2 == 0 %}background-color: #f5f5f5;{% endif %}">
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ user.id }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ user.email }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">
+                    {% if user.role == 'admin' %}
+                        <span style="background-color: #ff9800; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">
+                            👑 ADMIN
+                        </span>
+                    {% else %}
+                        <span style="background-color: #4CAF50; color: white; padding: 4px 8px; border-radius: 3px;">
+                            👤 USER
+                        </span>
+                    {% endif %}
+                </td>
+                <td style="padding: 10px; border: 1px solid #ddd; font-family: monospace; font-size: 12px; word-break: break-all;">
+                    {{ user.password[:50] }}...
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #ffc107;">
+        <strong>🔒 Security Note:</strong> Passwords are hashed using <strong>bcrypt</strong> algorithm. 
+        The hashed values shown above cannot be reversed to reveal the original passwords. 
+        Each hash includes a random salt for additional security.
+    </div>
+    {% else %}
+    <div style="background-color: #f8d7da; padding: 20px; border-radius: 5px; text-align: center;">
+        <p>No users found in the database.</p>
+    </div>
+    {% endif %}
+    
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="{{ url_for('dashboard') }}" style="background-color: #2196F3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+            ← Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}
