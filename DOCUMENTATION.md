@@ -1,7 +1,9 @@
 # Secure Web Application - Documentation
 **Framework**: Flask (Python)  
 **Version**: Flask 2.3.3  
-**Group Members**: [Add your names here]
+**Group Members**: Christian James B. Chatto
+                   Sean Andrew Ancog
+                   Zion Mico Castillon
 
 ---
 
@@ -11,7 +13,7 @@ This is a secure web application built using **Flask framework** that implements
 
 ---
 
-## 🎯 Core Features Implemented
+##  Core Features 
 
 ### 1. ✅ Login + Registration System
 - **Location**: `app.py` lines 93-146
@@ -142,13 +144,9 @@ response.headers['X-Frame-Options'] = 'DENY'            # Prevents clickjacking
 response.headers['X-XSS-Protection'] = '1; mode=block'  # XSS protection
 ```
 
-### Error Handling
-- Custom 404 and 403 error pages (lines 171-177)
-- Prevents information leakage through error messages
-
 ---
 
-## 🚀 Setup Instructions
+##  Setup Instructions
 
 ### Prerequisites:
 - Python 3.7 or higher
@@ -202,7 +200,7 @@ response.headers['X-XSS-Protection'] = '1; mode=block'  # XSS protection
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 IAS-main/
@@ -224,9 +222,8 @@ IAS-main/
 
 ---
 
-## 🛡️ Security Demonstration Points
+##  Security Demonstration Points
 
-### For Demo/Defense - Be Ready to Explain:
 
 1. **Where password hashing happens:**
    - Show `app.py` line 107 during registration
@@ -276,7 +273,7 @@ IAS-main/
 
 ---
 
-## 🎓 Learning Points / Key Takeaways
+##  Learning Points / Key Takeaways
 
 1. **Never store passwords in plain text** - Always use bcrypt or similar
 2. **Always validate on server-side** - Client-side validation can be bypassed
@@ -287,7 +284,7 @@ IAS-main/
 
 ---
 
-## 🐛 Known Limitations / Future Improvements
+##  Known Limitations / Future Improvements
 
 1. **Database**: Currently using SQLite (file-based). For production, use PostgreSQL/MySQL
 2. **Secret Key**: Hardcoded in `app.py` line 11. Should use environment variables
@@ -296,32 +293,5 @@ IAS-main/
 5. **Rate Limiting**: Not implemented (could add login attempt limiting)
 6. **Two-Factor Authentication**: Not implemented (could add as enhancement)
 
----
-
-## 📞 Support / Questions
-
-For questions during demo or evaluation, any group member can explain:
-- The code structure and flow
-- Security implementations
-- Design decisions
-- How to test each feature
-
----
-
-## ✅ Checklist - Project Requirements
-
-- [x] Framework used: Flask (Python)
-- [x] Login + Registration
-- [x] Password hashing (bcrypt)
-- [x] Role-Based Access (Admin/User)
-- [x] Protected routes
-- [x] Input validation (SQL Injection & XSS prevention)
-- [x] Additional feature: Password Strength Meter
-- [x] Documentation
-- [x] Test accounts provided
-- [x] Ready for demo
-
----
-
 **Last Updated**: February 2026  
-**Project Status**: Complete and ready for demonstration
+
