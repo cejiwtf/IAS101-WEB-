@@ -17,7 +17,7 @@
                 <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">ID</th>
                 <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">📧 Email</th>
                 <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">👤 Role</th>
-                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">🔑 Password (Hashed)</th>
+                <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">🔑 Password (Hashed)</th>
             </tr>
         </thead>
         <tbody>
@@ -36,8 +36,8 @@
                         </span>
                     {% endif %}
                 </td>
-                <td style="padding: 10px; border: 1px solid #ddd; font-family: monospace; font-size: 12px; word-break: break-all;">
-                    {{ user.password[:50] }}...
+                <td style="padding: 10px; border: 1px solid #ddd; font-family: monospace; font-size: 12px; text-align: center;">
+                    ••••••••
                 </td>
             </tr>
             {% endfor %}
